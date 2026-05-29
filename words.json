@@ -1,0 +1,9 @@
+[
+  { "cz": "pes", "en": "dog", "category": "animals" },
+  { "cz": "kočka", "en": "cat", "category": "animals" },
+  { "cz": "auto", "en": "car", "category": "things" },
+  { "cz": "dům", "en": "house", "category": "things" },
+  { "cz": "pták", "en": "bird", "category": "animals" },
+  { "cz": "kráva", "en": "cow", "category": "animals" },
+  { "cz": "strom", "en": "tree", "category": "things" }
+]
