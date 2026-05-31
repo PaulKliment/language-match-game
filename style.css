@@ -94,12 +94,7 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-h1 {
-  font-size: 2.2rem;
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  color: var(--text-main);
-}
+
 
 h2 {
   font-size: 1.5rem;
@@ -108,10 +103,17 @@ h2 {
 }
 
 h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 10px;
+  
+}
+
+ul, li {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
 }
 
 p {
@@ -229,20 +231,61 @@ button:active {
   color: var(--text-muted);
 }
 
+/* Oprava rozvržení statistik na herní obrazovce */
 .stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin: 15px 0;
-  text-align: left;
+  display: flex !important;   /* Změníme grid na flexbox, aby se prvky řadily za sebou a nepadaly pod slova */
+  flex-wrap: wrap;            /* Pokud se nevejdou vedle sebe, zalomí se přirozeně */
+  gap: 8px;                   /* Mezera mezi boxy */
+  justify-content: center;    /* Zarovnání na střed */
+  margin: 10px 0;
+  width: 100%;
 }
 
-.stats p {
-  background: var(--bg-app);
-  padding: 10px 14px;
-  border-radius: 10px;
+/* Sjednocení velikosti všech boxů ve statistikách, aby neposkakovaly */
+.stats p, .stats button {
+  flex: 1 1 calc(50% - 8px);  /* Každý box zabere přesně polovinu šířky panelu */
+  min-width: 120px;           /* Minimální šířka, aby se text nerozbil */
+  margin: 0 !important;       /* Vynulování vnějších mezer */
+  box-sizing: border-box;
+  text-align: center;         /* Text bude hezky uprostřed */
+}
+
+/* Oprava pro tlačítko pauzy, aby mělo stejnou výšku a styl jako okolní textové boxy */
+#pause-btn {
+  font-family: var(--font-main);
+  font-size: 1rem;
   font-weight: 600;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--bg-app);  /* Stejné pozadí jako mají ostatní statistiky */
   color: var(--text-main);
+  min-height: auto;           /* Zrušíme obří výšku z globálního nastavení tlačítek */
+  cursor: pointer;
+  box-shadow: none;
+}
+
+/* Zamezení změny velikosti tlačítka Pauza při kliknutí (aktivní stav) */
+#pause-btn:active {
+  transform: none;            /* Vypne zmenšení/zvětšení při kliku */
+}
+
+/* Zmenšení vyobrazení Combo textu, aby netloukl do očí */
+#combo-box {
+  font-size: 0.9rem;
+}
+
+#combo-box span {
+  font-size: inherit;
+  font-weight: 700;
+  color: #f59e0b;
+}
+
+/* Progress bar (časovač) roztáhneme vždy na celou šířku pod boxy */
+#timer-progress {
+  width: 100% !important;
+  flex: 1 1 100% !important;  /* Přes celou šířku */
+  margin-top: 5px;
 }
 
 .stats span {
@@ -476,7 +519,7 @@ max-width: 340px;
   top: 25%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.5);
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 900;
   color: #f59e0b;
   opacity: 0;
@@ -491,14 +534,7 @@ max-width: 340px;
   transform: translate(-50%, -50%) scale(1.1);
 }
 
-.floating-score {
-  position: absolute;
-  font-size: 2rem;
-  font-weight: 800;
-  color: #10b981;
-  text-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-  animation: floatUp 0.8s ease-out forwards;
-}
+
 
 .achievement-popup {
   position: fixed;
@@ -564,10 +600,7 @@ max-width: 340px;
   to { transform: rotate(360deg); }
 }
 
-@keyframes floatUp {
-  0% { opacity: 1; transform: translateY(0) scale(0.8); }
-  100% { opacity: 0; transform: translateY(-60px) scale(1.1); }
-}
+
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -582,7 +615,22 @@ max-width: 340px;
   body { padding: 12px; }
   
   h1 { font-size: 1.8rem; }
+
+
+  /* Zmenšení a zeštíhlení horního panelu na mobilech */
+  .top-panel {
+    padding: 12px 16px; /* Zmenšen vnitřní prostor (původně byl 24px) */
+    margin-bottom: 12px; /* Zmenšena mezera pod panelem (původně 24px) */
+    border-radius: 14px; /* O něco jemnější zaoblení odpovídající menšímu panelu */
+  }
   
+/* Tlačítko zpět do menu ("<- Menu") na mobilu nepotřebuje tolik místa */
+  .controls button {
+    padding: 8px 16px;
+    min-height: 40px;
+    font-size: 0.9rem;
+  }
+
   .container {
     gap: 12px; /* Zmenšení mezery mezi CZ a EN sloupcem na mobilech */
   }
@@ -614,4 +662,24 @@ max-width: 340px;
     animation: none !important;
     transition: none !important;
   }
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  flex: 1;
+}
+
+#confirm-exit {
+  background: #ef4444;
+  color: white;
+  border: none;
+}
+
+#confirm-exit:hover {
+  background: #dc2626;
 }

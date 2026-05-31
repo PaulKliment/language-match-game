@@ -61,6 +61,10 @@ function playSound(sound) {
   sound.currentTime = 0;
 
   sound.play();
+   const playPromise = sound.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {});
+  }
 }
 
 function vibrate(duration) {
@@ -204,48 +208,87 @@ ui.startTimerBtn.addEventListener("click", () => {
   ui.setupScreen.style.display = "block"; // Změněno na setup-screen
 });
 
-
-
 ui.backMenuBtn.addEventListener("click", () => {
 
-  const confirmLeave = confirm(
-    "Opravdu chceš opustit hru?"
-  );
-
-  if (!confirmLeave) return;
-
-  clearInterval(gameState.timerInterval);
-
-  ui.gameScreen.style.display = "none";
-  ui.menuScreen.style.display = "flex";
+  document
+    .getElementById("exit-modal")
+    .classList.remove("hidden");
 
 });
+
+const cancelExitBtn =
+  document.getElementById("cancel-exit");
+
+if (cancelExitBtn) {
+
+  cancelExitBtn.addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById("exit-modal")
+        .classList.add("hidden");
+
+    }
+  );
+
+}
+
+const confirmExitBtn =
+  document.getElementById("confirm-exit");
+
+if (confirmExitBtn) {
+
+  confirmExitBtn.addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById("exit-modal")
+        .classList.add("hidden");
+
+      clearInterval(gameState.timerInterval);
+
+      ui.gameScreen.style.display = "none";
+      ui.menuScreen.style.display = "flex";
+
+    }
+  );
+
+}
+
 
 function updateModeUI() {
   // Reset zobrazení
   ui.timerBox.style.display = "none";
   ui.scoreBox.style.display = "none";
   ui.pauseBtn.style.display = "none";
-document.getElementById("combo-box")
-  .style.display = "none";
-
-
+  document.getElementById("combo-box").style.display = "none";
   ui.timerProgress.style.display = "none";
-  ui.attemptsDisplay.parentElement.style.display = "block";
-  ui.accuracyDisplay.parentElement.style.display = "block";
+
+  // Načtení boxů pokusů a úspěšnosti podle nového ID z HTML
+  const attemptsBox = document.getElementById("attempts-box");
+  const accuracyBox = document.getElementById("accuracy-box");
+
+  // Defaultně zapneme zobrazení pokusů a úspěšnosti pro klasickou hru
+  if (attemptsBox) attemptsBox.style.display = "block";
+  if (accuracyBox) accuracyBox.style.display = "block";
 
   if (gameState.mode === "timer") {
     ui.timerBox.style.display = "block";
     ui.scoreBox.style.display = "block";
     ui.pauseBtn.style.display = "block";
-document.getElementById("combo-box")
-  .style.display = "block";
-
-
+    document.getElementById("combo-box").style.display = "block";
     ui.timerProgress.style.display = "block";
+
+    // V ČASOVCE SCHOVÁME POKUSY A ÚSPĚŠNOST:
+    if (attemptsBox) attemptsBox.style.display = "none";
+    if (accuracyBox) accuracyBox.style.display = "none";
+
   } else if (gameState.mode === "learn") {
-    ui.attemptsDisplay.parentElement.style.display = "none";
-    ui.accuracyDisplay.parentElement.style.display = "none";
+    // V MÓDU UČENÍ JE SCHOVÁME TAKÉ (původní logika):
+    if (attemptsBox) attemptsBox.style.display = "none";
+    if (accuracyBox) accuracyBox.style.display = "none";
   }
 }
 
@@ -460,7 +503,7 @@ function checkMatch() {
 
   const comboBonus =
     gameState.combo * 10;
-    showFloatingScore(comboBonus);
+    
 
   gameState.score += comboBonus;
 
@@ -686,26 +729,7 @@ function saveScore() {
   );
 }
 
-function showFloatingScore(points) {
 
-  const div = document.createElement("div");
-
-  div.classList.add("floating-score");
-
-  div.textContent = `+${points}`;
-
-  div.style.left =
-    (window.innerWidth / 2 - 30) + "px";
-
-  div.style.top =
-    (window.innerHeight / 2) + "px";
-
-  ui.floatingScoreContainer.appendChild(div);
-
-  setTimeout(() => {
-    div.remove();
-  }, 1000);
-}
 
   function showGameOver(message, scoreOrPercent) {
 
@@ -1088,7 +1112,7 @@ localStorage.setItem(
   if (type === "count") {
     ui.modalTitle.textContent = "Počet slov";
 
-    [3,5,10].forEach(num => {
+    [3,5].forEach(num => {
       const btn = document.createElement("button");
       btn.textContent = num + " slov";
 

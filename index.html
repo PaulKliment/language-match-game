@@ -116,7 +116,6 @@
       <h3>Počet slov</h3>
       <button class="setup-count" data-count="3">3</button>
       <button class="setup-count" data-count="5">5</button>
-      <button class="setup-count" data-count="10">10</button>
     </div>
 
     <button id="start-from-setup">Start</button>
@@ -128,8 +127,7 @@
   <div id="game-screen" style="display:none;">
     <div class="top-panel">
       <div class="title-row">
-        <h1>Spojovačka slov</h1>
-        
+      
       </div>
 
       <div class="controls">
@@ -143,12 +141,14 @@
       </div>
 
       <div class="stats">
-        <p>Pokusy: <span id="attempts">0</span></p>
-        <p>Úspěšnost: <span id="accuracy">0%</span></p>
+        <p id="attempts-box">Pokusy: <span id="attempts">0</span></p>
+        
+        <p id="accuracy-box">Úspěšnost: <span id="accuracy">0%</span></p>
+        
         <p id="timer-box" style="display:none;">Čas: <span id="timer">60</span>s</p>
         
         <button id="pause-btn" style="display:none;">
-  ⏸ Pauza
+   ⏸ Pauza
 </button>
         
         <div id="timer-progress">
@@ -199,6 +199,31 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  
+
+
+<div id="exit-modal" class="modal hidden">
+  <div class="modal-content">
+    <h2>Odejít ze hry?</h2>
+
+    <p>
+      Rozehraná hra bude ukončena.
+    </p>
+
+    <div class="modal-buttons">
+      <button id="cancel-exit">
+        Zůstat
+      </button>
+
+      <button id="confirm-exit">
+        Odejít
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+
 </body>
 </html>
