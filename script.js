@@ -184,9 +184,7 @@ ui.startGameBtn.addEventListener("click", () => {
   ui.menuScreen.style.display = "none";
   ui.setupScreen.style.display = "block";
 
-correctSound.play().then(() => { correctSound.pause(); correctSound.currentTime = 0; });
-  wrongSound.play().then(() => { wrongSound.pause(); wrongSound.currentTime = 0; });
-  if (words.length === 0) return;
+
 
   gameState.mode = "game";
 
@@ -1282,3 +1280,9 @@ window.addEventListener(
   }
 );
 
+function showScreen(id) {
+  document.querySelectorAll('.screen')
+    .forEach(screen => screen.classList.remove('active'));
+
+  document.getElementById(id).classList.add('active');
+}
