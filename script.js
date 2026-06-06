@@ -5,7 +5,7 @@ let gameState = {
   attempts: 0,
   correctAttempts: 0,
   selectedCategory: "all",
-  selectedCount: 5,
+  selectedCount: 4,
   
   timeLeft: 60,
   score: 0,
@@ -174,7 +174,7 @@ setupCountBtns: document.querySelectorAll(".setup-count"),
 };
 
 let setupCategory = "all";
-let setupCount = 5;
+let setupCount = 4;
 
 let first = null;
 let second = null;
@@ -894,15 +894,18 @@ if (ui.startFromSetupBtn) {
   ui.startFromSetupBtn.addEventListener("click", () => {
     // 1. Předání vybraných hodnot do herního stavu
     gameState.selectedCategory = setupCategory;
-    gameState.selectedCount = setupCount;
+    gameState.selectedCount = 4;
 
     // 2. Aktualizace textů přímo na herní obrazovce
     let catText = "Vše";
     if (setupCategory === "animals") catText = "Zvířata";
     if (setupCategory === "things") catText = "Věci";
+    if (setupCategory === "food") catText = "Jídlo";
+    if (setupCategory === "clothes") catText = "Oblečení";
+    if (setupCategory === "colours") catText = "Barvy";
     
     ui.categoryBtn.textContent = "Kategorie: " + catText;
-    ui.countBtn.textContent = "Počet slov: " + setupCount;
+    
 
     // 3. Schování setupu a zobrazení hry
     ui.setupScreen.style.display = "none";
@@ -944,6 +947,16 @@ if (savedCategory) {
     categoryLabel = "Věci";
   }
 
+  if (savedCategory === "food") {
+    categoryLabel = "Jídlo";
+  }
+  if (savedCategory === "clothes") {
+    categoryLabel = "Oblečení";
+  }
+  if (savedCategory === "colours") {
+    categoryLabel = "Barvy";
+  }
+
   ui.categoryBtn.textContent =
     "Kategorie: " + categoryLabel;
 }
@@ -956,11 +969,8 @@ const savedCount =
 
 if (savedCount) {
 
-  gameState.selectedCount =
-    Number(savedCount);
-
-  ui.countBtn.textContent =
-    "Počet slov: " + savedCount;
+  gameState.selectedCount = 4;
+ui.countBtn.textContent = "Počet slov: 4";
 }
 
 // 🚀 Start hry
@@ -1083,7 +1093,10 @@ function openModal(type) {
     const options = [
       { label: "Vše", value: "all" },
       { label: "Zvířata", value: "animals" },
-      { label: "Věci", value: "things" }
+      { label: "Věci", value: "things" },
+      { label: "Jídlo", value: "food" },
+      { label: "Oblečení", value: "clothes" },
+      { label: "Barvy", value: "colours" }
     ];
 
     options.forEach(opt => {
@@ -1110,7 +1123,7 @@ localStorage.setItem(
   if (type === "count") {
     ui.modalTitle.textContent = "Počet slov";
 
-    [3,5].forEach(num => {
+    [4].forEach(num => {
       const btn = document.createElement("button");
       btn.textContent = num + " slov";
 
