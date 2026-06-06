@@ -166,6 +166,8 @@ bestScoreDisplay: document.getElementById("best-score"),
 
 startFromSetupBtn: document.getElementById("start-from-setup"),
 backToMenuSetupBtn: document.getElementById("back-to-menu-setup"),
+backToSetupGameoverBtn: document.getElementById("back-to-setup-gameover"),
+
 
 setupScreen: document.getElementById("setup-screen"),
 setupCategoryBtns: document.querySelectorAll(".setup-btn"),
@@ -917,13 +919,12 @@ if (ui.startFromSetupBtn) {
 }
 
 ui.backToMenuSetupBtn.addEventListener("click", () => {
-
-  // 1. schovej setup screen
   ui.setupScreen.style.display = "none";
-
-  // 2. vrať menu
   ui.menuScreen.style.display = "flex";
+});
 
+ui.backToSetupGameoverBtn.addEventListener("click", () => {
+  exitToSetup();
 });
 
 // Načtení uložené kategorie
@@ -1151,6 +1152,8 @@ ui.soundToggle.addEventListener(
   toggleSound
 );
 
+
+
 ui.setupCategoryBtns.forEach(btn => {
 
   btn.addEventListener("click", () => {
@@ -1298,4 +1301,39 @@ function showScreen(id) {
     .forEach(screen => screen.classList.remove('active'));
 
   document.getElementById(id).classList.add('active');
+}
+
+function exitToSetup() {
+
+  // stop timeru
+  clearInterval(gameState.timerInterval);
+
+  // reset stavu hry
+  gameState.mode = "game";
+  gameState.timeLeft = 60;
+  gameState.score = 0;
+  gameState.combo = 0;
+  gameState.maxCombo = 0;
+  gameState.attempts = 0;
+  gameState.correctAttempts = 0;
+  gameState.isPaused = false;
+
+  first = null;
+  second = null;
+  isChecking = false;
+
+  // reset UI hry
+  ui.gameOverScreen.style.display = "none";
+  ui.gameScreen.style.display = "none";
+
+  ui.timerDisplay.textContent = "60";
+  ui.scoreDisplay.textContent = "0";
+  ui.comboDisplay.textContent = "0";
+  ui.accuracyDisplay.textContent = "0%";
+  ui.attemptsDisplay.textContent = "0";
+
+  ui.timerBar.style.width = "100%";
+
+  // návrat do setupu
+  ui.setupScreen.style.display = "block";
 }
