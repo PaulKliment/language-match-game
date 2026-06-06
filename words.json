@@ -3,7 +3,26 @@
   { "cz": "kočka", "en": "cat", "category": "animals" },
   { "cz": "auto", "en": "car", "category": "things" },
   { "cz": "dům", "en": "house", "category": "things" },
+  
   { "cz": "pták", "en": "bird", "category": "animals" },
   { "cz": "kráva", "en": "cow", "category": "animals" },
-  { "cz": "strom", "en": "tree", "category": "things" }
+  { "cz": "strom", "en": "tree", "category": "things" },
+  
+  { "cz": "jablko", "en": "apple", "category": "food" },
+  { "cz": "chléb", "en": "bread", "category": "food" },
+  { "cz": "sýr", "en": "cheese", "category": "food" },
+  { "cz": "mléko", "en": "milk", "category": "food" },
+  { "cz": "vejce", "en": "egg", "category": "food" },
+
+  { "cz": "tričko", "en": "t-shirt", "category": "clothes" },
+  { "cz": "boty", "en": "shoes", "category": "clothes" },
+  { "cz": "bunda", "en": "jacket", "category": "clothes" },
+  { "cz": "kalhoty", "en": "trousers", "category": "clothes" },
+  { "cz": "čepice", "en": "cap", "category": "clothes" },
+
+  { "cz": "červená", "en": "red", "category": "colours" },
+  { "cz": "modrá", "en": "blue", "category": "colours" },
+  { "cz": "zelená", "en": "green", "category": "colours" },
+  { "cz": "žlutá", "en": "yellow", "category": "colours" },
+  { "cz": "černá", "en": "black", "category": "colours" }
 ]
