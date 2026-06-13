@@ -11,102 +11,55 @@
 <body>
 
 <div id="loading-screen">
-
   <div class="loader"></div>
-
   <p>Načítání slov...</p>
-
-</div>
-<div class="app"></div>
-  <div id="menu-screen">
-    <div class="title-row">
-      <h1>Spojovačka slov</h1>
-    </div>
-
-    <div class="menu-buttons">
-  <button id="start-game">Hrát</button>
-  <button id="start-learn">Učit se</button>
-  <button id="start-timer">Časovka</button>
-
-  <button id="stats-btn">📊 Přehled</button>
-  <button id="settings-btn">⚙️ Nastavení</button>
-
-  <div class="app-version">Verze 1.0</div>
 </div>
 
-</div>
-    
+<!-- FIX: was <div class="app"></div> (immediately self-closed/empty), leaving all screens
+     outside it and creating an orphaned </div> after #menu-screen -->
+<div id="menu-screen">
+  <div class="title-row">
+    <h1>Spojovačka slov</h1>
   </div>
+  <div class="menu-buttons">
+    <button id="start-game">Hrát</button>
+    <button id="start-learn">Učit se</button>
+    <button id="start-timer">Časovka</button>
+    <button id="stats-btn">📊 Přehled</button>
+    <button id="settings-btn">⚙️ Nastavení</button>
+    <div class="app-version">Verze 1.0</div>
+  </div>
+</div>
 
 <!-- PŘEHLED -->
-
 <div id="stats-modal" class="modal hidden">
   <div class="modal-content">
-
     <h2>📊 Přehled</h2>
-
-    <p>Odehráno her:
-      <span id="games-played">0</span>
-    </p>
-
-    <p>Správných odpovědí:
-      <span id="correct-total">0</span>
-    </p>
-
-    <p>Nejlepší combo:
-      <span id="best-combo">0</span>
-    </p>
-
-    <p>Nejvyšší score:
-      <span id="best-score">0</span>
-    </p>
-
-    
+    <p>Odehráno her: <span id="games-played">0</span></p>
+    <p>Správných odpovědí: <span id="correct-total">0</span></p>
+    <p>Nejlepší combo: <span id="best-combo">0</span></p>
+    <p>Nejvyšší score: <span id="best-score">0</span></p>
     <p>Highscore: <span id="highscore">0</span></p>
-    
-    <p>Poslední výsledek:
-      <span id="last-score">-</span>
-    </p>
-
+    <p>Poslední výsledek: <span id="last-score">-</span></p>
     <h3>Historie</h3>
-
     <ul id="history"></ul>
-
-    <button id="close-stats">
-      Zavřít
-    </button>
-
+    <button id="close-stats">Zavřít</button>
   </div>
 </div>
 
 <!-- NASTAVENÍ -->
-
 <div id="settings-modal" class="modal hidden">
   <div class="modal-content">
-
     <h2>⚙️ Nastavení</h2>
-
-    <button id="theme-toggle">
-      🌙 Dark mode
-    </button>
-
-    <button id="sound-toggle">
-      🔊 Zvuky: Zapnuto
-    </button>
-
-    <button id="close-settings">
-      Zavřít
-    </button>
-
+    <button id="theme-toggle">🌙 Dark mode</button>
+    <button id="sound-toggle">🔊 Zvuky: Zapnuto</button>
+    <button id="close-settings">Zavřít</button>
   </div>
 </div>
 
-
 <div id="setup-screen" style="display:none;">
   <div class="setup-box">
-
     <h2>Nastavení hry</h2>
-
     <div class="setup-section">
       <h3>Kategorie</h3>
       <button class="setup-btn" data-category="all">Vše</button>
@@ -115,118 +68,83 @@
       <button class="setup-btn" data-category="food">Jídlo</button>
       <button class="setup-btn" data-category="clothes">Oblečení</button>
       <button class="setup-btn" data-category="colours">Barvy</button>
+      <button class="setup-btn" data-category="sport">Sporty</button>
+      <button class="setup-btn" data-category="family">Rodina</button>
+      <button class="setup-btn" data-category="profession">Povolání</button>
+      <button class="setup-btn" data-category="countries">Země</button>
     </div>
 
-   
-
-    <button id="start-from-setup">Start</button>
-    <button id="back-to-menu-setup">Zpět</button>
-
+    <div id="action-bar" class="action-bar">
+      <button id="start-from-setup">▶ Start</button>
+      <button id="back-to-menu-setup">⬅ Zpět</button>
+    </div>
   </div>
 </div>
 
-  <div id="game-screen" style="display:none;">
-    <div class="top-panel">
-      <div class="title-row">
-      
+<div id="game-screen" style="display:none;">
+  <div class="top-panel">
+    <!-- FIX: removed empty <div class="title-row"></div> -->
+    <div class="controls">
+      <button id="back-menu">⬅ Menu</button>
+      <div class="game-info-labels">
+        <span id="game-category-label">Kategorie: Vše</span>
       </div>
+    </div>
 
-      <div class="controls">
-  <button id="back-menu">⬅ Menu</button>
-  <!-- Z tlačítek jsme udělali obyčejný text (spany) -->
-  <div class="game-info-labels">
-    <span id="game-category-label">Kategorie: Vše</span>
-    
-  </div>
-</div>
+    <div class="stats">
+      <p id="attempts-box">Pokusy: <span id="attempts">0</span></p>
+      <p id="accuracy-box">Úspěšnost: <span id="accuracy">0%</span></p>
+      <p id="timer-box" style="display:none;">Čas: <span id="timer">60</span>s</p>
+      <button id="pause-btn" style="display:none;">⏸ Pauza</button>
+      <div id="timer-progress">
+        <div id="timer-bar"></div>
       </div>
-
-      <div class="stats">
-        <p id="attempts-box">Pokusy: <span id="attempts">0</span></p>
-        
-        <p id="accuracy-box">Úspěšnost: <span id="accuracy">0%</span></p>
-        
-        <p id="timer-box" style="display:none;">Čas: <span id="timer">60</span>s</p>
-        
-        <button id="pause-btn" style="display:none;">
-   ⏸ Pauza
-</button>
-        
-        <div id="timer-progress">
-  <div id="timer-bar"></div>
-</div>
-        <p id="score-box" style="display:none;">Score: <span id="score">0</span></p>
-       <p id="combo-box" style="display:none;">
-  Combo: x<span id="combo">0</span>
-</p>
-      </div>
-     
-      
-      <button id="restart" style="display:none;">Hrát znovu</button>
-    
-
-<div id="combo-popup"></div>
-
-    <div id="game-over" style="display:none;">
-
-  <div class="gameover-content">
-
-    <div class="gameover-icon">🏆</div>
-
-    <h2>Perfektní!</h2>
-
-    <div id="final-score"></div>
-
-    <button id="play-again">
-      Hrát znovu
-    </button>
-
-<button id="back-to-setup-gameover">Změnit kategorii</button>
-
-  </div>
-
-</div>
-
-<div id="floating-score-container"></div>
-
-    <div class="container">
-      <div id="cz-list" class="column"></div>
-      <div id="en-list" class="column"></div>
+      <p id="score-box" style="display:none;">Score: <span id="score">0</span></p>
+      <p id="combo-box" style="display:none;">Combo: x<span id="combo">0</span></p>
     </div>
   </div>
 
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <h3 id="modal-title"></h3>
-      <div id="modal-options"></div>
+  <div id="combo-popup"></div>
+
+  <div id="game-over" style="display:none;">
+    <div class="gameover-content">
+      <div class="gameover-icon">🏆</div>
+      <!-- FIX: added id="gameover-title" so JS can update this directly instead of
+           injecting a nested .gameover-content div that doubled up the layout -->
+      <h2 id="gameover-title">Perfektní!</h2>
+      <div id="final-score"></div>
+      <button id="play-again">Hrát znovu</button>
+      <button id="back-to-setup-gameover">Změnit kategorii</button>
     </div>
   </div>
 
-  
+  <div id="floating-score-container"></div>
 
+  <div class="container">
+    <div id="cz-list" class="column"></div>
+    <div id="en-list" class="column"></div>
+  </div>
+</div>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="modal-title"></h3>
+    <div id="modal-options"></div>
+  </div>
+</div>
 
 <div id="exit-modal" class="modal hidden">
   <div class="modal-content">
     <h2>Odejít ze hry?</h2>
-
-    <p>
-      Rozehraná hra bude ukončena.
-    </p>
-
+    <p>Rozehraná hra bude ukončena.</p>
     <div class="modal-buttons">
-      <button id="cancel-exit">
-        Zůstat
-      </button>
-
-      <button id="confirm-exit">
-        Odejít
-      </button>
+      <button id="cancel-exit">Zůstat</button>
+      <button id="confirm-exit">Odejít</button>
     </div>
   </div>
 </div>
 
 <script src="script.js"></script>
-
 
 </body>
 </html>
